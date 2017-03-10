@@ -3,22 +3,28 @@ import hashlib
 
 class User:
     def __init__(self, username, password):  # initializes User with a username and password
-        '''Create a new user object. The password
-        will be encrypted before storing.'''
+        '''
+        Create a new user object. The password
+        will be encrypted before storing.
+        '''
         self.username = username  # refers to the created object's name
         self.password = self._encrypt_pw(password)
         self.is_logged_in = False  # there should not be any active sessions (user should be logged out on default)
 
     def _encrypt_pw(self, password):
-        '''Encrypt the password with the username and return
-        the sha digest.'''
+        '''
+        Encrypt the password with the username and return
+        the sha digest.
+        '''
         hash_string = (self.username + password)
         hash_string = hash_string.encode("utf8")
         return hashlib.sha256(hash_string).hexdigest()
 
     def check_password(self, password):
-        '''Return True if the password is valid for this
-        user, false otherwise.'''
+        '''
+        Return True if the password is valid for this
+        user, false otherwise.
+        '''
         encrypted = self._encrypt_pw(password)
         return encrypted == self.password
 
